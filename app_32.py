@@ -391,8 +391,10 @@ st.sidebar.info(f"""
 `{AWS_REGION}`
 
 **Status:** 
-{'✅ Connected' if API_ENDPOINT != 'https://5c9t51huga.execute-api.us-east-2.amazonaws.com/prod/query' else '⚠️ Configure API endpoint'}
+{'✅ Connected' if API_ENDPOINT.startswith('https://') and 'https://5c9t51huga.execute-api.us-east-2.amazonaws.com/prod/query' not in API_ENDPOINT else '⚠️ Configure API endpoint'}
 """)
+# {'✅ Connected' if API_ENDPOINT != 'https://5c9t51huga.execute-api.us-east-2.amazonaws.com/prod/query' else '⚠️ Configure API endpoint'}
+# """)
 
 st.sidebar.markdown("---")
 st.sidebar.markdown("### 🚀 Benefits")
