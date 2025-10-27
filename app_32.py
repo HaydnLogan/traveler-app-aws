@@ -31,26 +31,21 @@ AWS_REGION = "us-east-2"
 API_ENDPOINT = "https://5c9t51huga.execute-api.us-east-2.amazonaws.com/prod/query"
 S3_BUCKET = "traveler-app-uploads"
 
-# Optional: AWS credentials for S3 uploads
-# You can configure these via environment variables or Streamlit secrets
-# For local testing: aws configure
-# For Streamlit Cloud: Add to .streamlit/secrets.toml
-
-# Get AWS credentials from secrets (Streamlit Cloud)
-if "aws" in st.secrets:
-    s3_client = boto3.client(
-        's3',
-        aws_access_key_id=st.secrets["aws"]["aws_access_key_id"],
-        aws_secret_access_key=st.secrets["aws"]["aws_secret_access_key"],
-        region_name=st.secrets["aws"]["aws_region"]
-    )
-else:
-
 # === S3 Upload Helper ===
 def upload_to_s3(file, asset_id, timeframe, feed_type):
     """Upload file to S3 which triggers automatic ETL processing"""
     try:
-        s3_client = boto3.client('s3', region_name=AWS_REGION)
+        # Get AWS credentials from secrets (Streamlit Cloud) or use default (local)
+        if "aws" in st.secrets:
+            s3_client = boto3.client(
+                's3',
+                aws_access_key_id=st.secrets["aws"]["aws_access_key_id"],
+                aws_secret_access_key=st.secrets["aws"]["aws_secret_access_key"],
+                region_name=st.secrets["aws"]["aws_region"]
+            )
+        else:
+            # Use default credentials from aws configure (local development)
+            s3_client = boto3.client('s3', region_name=AWS_REGION)
         
         # Generate S3 key: {asset_id}/{timeframe}/{feed_type}/{filename}
         filename = file.name
