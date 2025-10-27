@@ -391,8 +391,8 @@ st.sidebar.info(f"""
 `{AWS_REGION}`
 
 **Status:** 
-{'✅ Connected' if API_ENDPOINT.startswith('https://') and 'https://5c9t51huga.execute-api.us-east-2.amazonaws.com/prod/query' not in API_ENDPOINT else '⚠️ Configure API endpoint'}
-""")
+**Status:** 
+{'✅ Connected' if '5c9t51huga' in API_ENDPOINT else '⚠️ Not configured'}
 # {'✅ Connected' if API_ENDPOINT != 'https://5c9t51huga.execute-api.us-east-2.amazonaws.com/prod/query' else '⚠️ Configure API endpoint'}
 # """)
 
