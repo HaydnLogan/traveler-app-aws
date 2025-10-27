@@ -36,6 +36,16 @@ S3_BUCKET = "traveler-app-uploads"
 # For local testing: aws configure
 # For Streamlit Cloud: Add to .streamlit/secrets.toml
 
+# Get AWS credentials from secrets (Streamlit Cloud)
+if "aws" in st.secrets:
+    s3_client = boto3.client(
+        's3',
+        aws_access_key_id=st.secrets["aws"]["aws_access_key_id"],
+        aws_secret_access_key=st.secrets["aws"]["aws_secret_access_key"],
+        region_name=st.secrets["aws"]["aws_region"]
+    )
+else:
+
 # === S3 Upload Helper ===
 def upload_to_s3(file, asset_id, timeframe, feed_type):
     """Upload file to S3 which triggers automatic ETL processing"""
