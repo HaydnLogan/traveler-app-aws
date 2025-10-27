@@ -141,7 +141,7 @@ def render_unified_export(traveler_reports, report_time, asset_id=""):
 
 # === Main App ===
 st.set_page_config(layout="wide")
-st.header("🚀 Traveler App - AWS Accelerated v01 (legacy v32")
+st.header("🚀 Traveler App - AWS Accelerated v01 (legacy v32b")
 
 # Display mode selection
 st.sidebar.markdown("### 🔧 Processing Mode")
